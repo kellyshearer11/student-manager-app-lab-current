@@ -92,31 +92,34 @@ public class Main extends Application implements Serializable {
         });
 
         // Load from DB
-        Button btnLoadDB = new Button("Load Students from DB");
-        TextField tfLoadStudents = new TextField();
-
-        tfLoadStudents.setPromptText("Please enter DB path");
-        btnLoadDB.setOnAction(e -> {
-
-            try{
-                File studentDB = new File(tfLoadStudents.getText());
+           Button btnLoadDB = new Button("Load Students from DB");
+             TextField tfLoadStudents = new TextField();
+              tfLoadStudents.setPromptText("Load Student DB");
+           
+              btnLoadDB.setOnAction(e -> {
+                
+                try {
+                 File studentDB = new File(tfLoadStudents.getText() );
                 ObjectInputStream in = new ObjectInputStream(new FileInputStream(studentDB));
-                sm = (StudentManager) in.readObject();
-                in.close();
-                taMyOutput.setText("Successfully loaded Students from Database");
-            } catch (Exception exception) {
-                    System.out.print("[Error] Cannont load DB. Cause: ");
+                 sm = (StudentManager) in.readObject();
+                 in.close();
+                 taMyOutput.setText("Student Database Loaded");
+                    
+                   }   catch (Exception exception) {
+                    System.out.print("[Error] Cannont Load DB. Cause: ");
                     exception.printStackTrace();
-                    taMyOutput.setText("ERROR: Failed to load Students DB!");
-            }
-
+                    taMyOutput.setText("ERROR: Failed to Load Students DB!");
+                }
         });
 
-        // Add Quit button
-		Button btnQuit = new Button("Quit");	
-        btnQuit.setOnAction(e -> 
-            Platform.exit()
-        );
+        // quit button
+           Button btnQuit = new Button("Quit");
+
+           btnQuit.setOnAction(e -> { 
+               Platform.exit();
+
+           });
+    
 
         // Adding and arranging all the nodes in the grid - add(node, column, row)
         GridPane gridPane1 = new GridPane();
@@ -131,6 +134,7 @@ public class Main extends Application implements Serializable {
         gridPane1.add(tfLoadStudents, 1, 4);
         gridPane1.add(taMyOutput, 0, 5, 2, 1);
         gridPane1.add(btnQuit, 0, 6);
+
 
         // Preparing the Stage (i.e. the container of any JavaFX application)
         // Create a Scene by passing the root group object, height and width
